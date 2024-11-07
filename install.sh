@@ -8,3 +8,5 @@ pip install loguru
 pip install wandb
 pip install transformers
 pip install einops
+pip install frc
+pip install pytorch-fid
