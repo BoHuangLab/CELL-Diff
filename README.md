@@ -73,10 +73,10 @@ bash run_image_prediction_opencell.sh
 
 ### Validate Pretrained Model.
 Download the testing set from:
-https://drive.google.com/drive/folders/1D621oXm9HjN9stB8N1qa-3bWfe6jzuqI?usp=drive_link
+* [HPA Testing Set](https://drive.google.com/drive/folders/1D621oXm9HjN9stB8N1qa-3bWfe6jzuqI?usp=drive_link)
 
 Download the pre-trained model from:
-https://drive.google.com/file/d/1NoYS5D77pvCziHApHWsjEuErD8EZ7A_-/view?usp=drive_link
+* [HPA Model](https://drive.google.com/file/d/1NoYS5D77pvCziHApHWsjEuErD8EZ7A_-/view?usp=drive_link)
 
 ```shell
 # Set the output directory
