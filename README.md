@@ -18,8 +18,14 @@ bash install.sh
 ## Pretrained Models
 
 Download pretrained models from the following sources:
-* [HPA trained model](https://drive.google.com/file/d/1vo8GDzLZU1QYy5p9IFR6jVr3zdE1m9Gy/view?usp=drive_link)
-* [OpenCell trained model](https://drive.google.com/file/d/1DtvFxKRZHZMZKIX1HERbH83tQOtQQ9ZC/view?usp=drive_link)
+* HPA trained model, run:
+```shell
+aws s3 cp --no-sign-request s3://czi-celldiff-public/checkpoints/hpa_checkpoint.pt ./hpa_checkpoint.pt
+```
+* OpenCell trained model, run:
+```shell
+aws s3 cp --no-sign-request s3://czi-celldiff-public/checkpoints/opencell_checkpoint.pt ./opencell_checkpoint.pt
+```
 
 ## Protein Image Generation
 
@@ -75,8 +81,10 @@ bash run_image_prediction_opencell.sh
 Download the testing set from:
 * [HPA Testing Set](https://drive.google.com/drive/folders/1D621oXm9HjN9stB8N1qa-3bWfe6jzuqI?usp=drive_link)
 
-Download the pre-trained model from:
-* [HPA Model](https://drive.google.com/file/d/1NoYS5D77pvCziHApHWsjEuErD8EZ7A_-/view?usp=drive_link)
+Download the pre-trained model:
+```shell
+aws s3 cp --no-sign-request s3://czi-celldiff-public/checkpoints/eval_hpa_checkpoint.pt ./eval_hpa_checkpoint.pt
+```
 
 ```shell
 # Set the output directory
