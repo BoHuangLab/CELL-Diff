@@ -17,16 +17,9 @@ bash install.sh
 
 ## Pretrained Models
 
-Download pretrained models from the following sources:
-* VAE models, run:
+Download pretrained models:
 ```shell
-```
-
-* HPA trained model, run:
-```shell
-```
-* OpenCell trained model, run:
-```shell
+aws s3 sync s3://czi-celldiff-public/v2/checkpoints/ ./pretrained_models --no-sign-request
 ```
 
 ## Protein Image Generation
@@ -38,21 +31,21 @@ To generate a protein image:
 bash run_hpa_image_generation.sh
 ```
 
-### OpenCell Model: Generating Live Microscopy Protein Images from a Protein Sequence.
+### OpenCell Model: Generating Live Microscopy Protein Images from a Protein Sequence
 
 To generate a protein image:
 ```shell
 bash run_opencell_image_generation.sh
 ```
 
-### Validate Pretrained Model.
-Download the dataset from:
-* [HPA]()
-* [OpenCell]()
-
-Download the pre-trained model:
+### Validate Pretrained Model
+Download the processed dataset:
 ```shell
+aws s3 sync s3://czi-celldiff-public/v2/training-data/ ./processed_datasets --no-sign-request
+```
 
+Run evaluation:
+```shell
 bash run_hpa_evaluation.sh
 bash run_opencell_evaluation.sh
 ```
@@ -63,7 +56,7 @@ To generate a protein sequence:
 bash run_sequence_generation.sh
 ```
 
-## Training.
+## Training
 
 HPA pretraining:
 ```shell
@@ -73,4 +66,9 @@ bash run_hpa_pretrain.sh
 OpenCell finetuning:
 ```shell
 bash run_opencell_finetune.sh
+```
+
+## Download ALL data (checkpoints and datasets)
+```shell
+aws s3 sync s3://czi-celldiff-public/v2/ ./checkpoints_datasets --no-sign-request
 ```

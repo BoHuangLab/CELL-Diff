@@ -1,8 +1,5 @@
-Download the processed datasets
+Download the processed datasets:
 
-* Human Protein Atlas (HPA) dataset, run:
 ```shell
-```
-* OpenCell dataset, run:
-```shell
+aws s3 sync s3://czi-celldiff-public/v2/training-data/ ./ --no-sign-request
 ```
