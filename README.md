@@ -26,14 +26,16 @@ aws s3 sync s3://czi-celldiff-public/v2/checkpoints/ ./pretrained_models --no-si
 
 ### Human Protein Atlas Model: Generating Fixed Immunofluorescence Microscopy Protein Images from a Protein Sequence
 
-To generate a protein image:
+1. Set `vae_loadcheck_path` and `loadcheck_path` in `run_hpa_image_generation.sh` (paths to the VAE model and CELL-Diff model).
+2. Run:
 ```shell
 bash run_hpa_image_generation.sh
 ```
 
 ### OpenCell Model: Generating Live Microscopy Protein Images from a Protein Sequence
 
-To generate a protein image:
+1. Set `vae_loadcheck_path` and `loadcheck_path` in `run_opencell_image_generation.sh` (paths to the VAE model and CELL-Diff model).
+2. Run:
 ```shell
 bash run_opencell_image_generation.sh
 ```
@@ -45,6 +47,8 @@ aws s3 sync s3://czi-celldiff-public/v2/training-data/ ./processed_datasets --no
 ```
 
 Run evaluation:
+1. Set `vae_loadcheck_path`, `loadcheck_path`, and `data_path` in `run_hpa_evaluation.sh` or `run_opencell_evaluation.sh` (paths to the VAE model, CELL-Diff model, and dataset).
+2. Run:
 ```shell
 bash run_hpa_evaluation.sh
 bash run_opencell_evaluation.sh
@@ -52,6 +56,8 @@ bash run_opencell_evaluation.sh
 
 ## Protein Sequence Generation
 To generate a protein sequence:
+1. Set `vae_loadcheck_path` and `loadcheck_path` in `run_sequence_generation.sh` (paths to the VAE model and CELL-Diff model).
+2. Run:
 ```shell
 bash run_sequence_generation.sh
 ```
@@ -59,11 +65,15 @@ bash run_sequence_generation.sh
 ## Training
 
 HPA pretraining:
+1. Set `vae_loadcheck_path` and `data_path` in `run_hpa_pretrain.sh` (paths to the VAE model and dataset).
+2. Run:
 ```shell
 bash run_hpa_pretrain.sh
 ```
 
 OpenCell finetuning:
+1. Set `vae_loadcheck_path`, `loadcheck_path`, and `data_path` in `run_opencell_finetune.sh` (paths to the VAE model, pretrained CELL-Diff model, and dataset).
+2. Run:
 ```shell
 bash run_opencell_finetune.sh
 ```
