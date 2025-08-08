@@ -117,10 +117,11 @@ def main(args) -> None:
         save_image(nucleus_img, save_file / 'real_nucleus_img.png', normalize=True, value_range=(-1, 1))
         save_image(protein_img, save_file / 'real_protein_img.png', normalize=True, value_range=(-1, 1))
 
-        sample = model.sequence_to_image(
-            protein_seq, cell_img_latent, sampling_strategy="ddim", progress=False, 
-        )
-        sample = vae.decode(sample).sample
+        with torch.no_grad():
+            sample = model.sequence_to_image(
+                protein_seq, cell_img_latent, sampling_strategy="ddim", progress=False, 
+            )
+            sample = vae.decode(sample).sample
         
         pred_img = torch.cat([torch.full_like(protein_img, -1), sample, nucleus_img], dim=1)
 

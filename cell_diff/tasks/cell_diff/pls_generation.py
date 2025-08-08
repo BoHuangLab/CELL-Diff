@@ -91,11 +91,12 @@ def main(args) -> None:
     protein_seq_mask = (protein_seq == vocab.mask_idx)
 
     for i in range(num_gen):
-        sample = model.image_to_sequece(
-            protein_seq, protein_seq_mask, protein_img_latent, 
-            cell_img_latent, order='random', temperature=1.0, 
-            progress=False, 
-        )
+        with torch.no_grad():
+            sample = model.image_to_sequence(
+                protein_seq, protein_seq_mask, protein_img_latent,
+                cell_img_latent, order='random', temperature=1.0,
+                progress=False,
+            )
 
         gen_seq = vocab.untokenize(sample.squeeze()[1:-1])
         gen_sig = gen_seq[-num_aas:]

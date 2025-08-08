@@ -245,7 +245,7 @@ class CELLDiffModel(PreTrainedModel):
 
         return protein_img_latent
 
-    def image_to_sequece(self, protein_seq, protein_seq_mask, protein_img_latent, cell_img_latent, progress=True, sampling_strategy='oaardm', order='l2r', temperature=1.0):
+    def image_to_sequence(self, protein_seq, protein_seq_mask, protein_img_latent, cell_img_latent, progress=True, sampling_strategy='oaardm', order='l2r', temperature=1.0):
         if sampling_strategy == "oaardm":
             return self.oaardm_sample(protein_seq, protein_seq_mask, protein_img_latent, cell_img_latent, progress, order, temperature)
 

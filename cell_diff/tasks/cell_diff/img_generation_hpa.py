@@ -90,8 +90,9 @@ def main(args) -> None:
     print("Generating protein image from sequence: ")
     print(test_sequence)
 
-    sample = model.sequence_to_image(test_sequence_token, cell_img_latent, sampling_strategy="ddim")
-    sample = vae.decode(sample).sample
+    with torch.no_grad():
+        sample = model.sequence_to_image(test_sequence_token, cell_img_latent, sampling_strategy="ddim")
+        sample = vae.decode(sample).sample
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(exist_ok=True)
