@@ -4,12 +4,12 @@
 # export WANDB_PROJECT=        # (Optional) WandB project name to group related experiments
 
 # Set the output directory for training results
-export output_dir=pretrain_hpa/pt_cell_diff_hpa
+export output_dir=./pretrain_hpa/pt_cell_diff_hpa
 
 # Set the path to the training dataset
-export data_path=Path/to/HPA/lmdb_dataset
+export data_path=./processed_datasets/HPA/lmdb_dataset
 
 # Set the path to the pretrained VAE checkpoint
-export vae_loadcheck_path=Path/to/pretrained_models/vae/hpa_pretrained.bin
+export vae_loadcheck_path=./pretrained_models/vae/hpa_pretrained.bin
 
 bash scripts/cell_diff/pretrain_hpa.sh
