@@ -250,7 +250,20 @@ class CELLDiffModel(PreTrainedModel):
             return self.oaardm_sample(protein_seq, protein_seq_mask, protein_img_latent, cell_img_latent, progress, order, temperature)
 
     def oaardm_sample(self, protein_seq, protein_seq_mask, protein_img_latent, cell_img_latent, progress=True, order='random', temperature=1.0):
-        loc = torch.where(protein_seq_mask.bool().squeeze())[0].cpu().numpy()
+        # One sequence per call: the fill order below is one list of positions shared by the
+        # whole batch. With a batched 2-D mask, torch.where(...)[0] returns row indices, so
+        # positions 0..B-1 (<cls> and the first residues) would be overwritten without error.
+        if protein_seq.shape[0] != 1:
+            raise ValueError(
+                f"oaardm_sample expects batch size 1, got {protein_seq.shape[0]}. "
+                "Call it once per sequence."
+            )
+
+        # Fill a copy so the caller's masked template survives. Filling protein_seq in place
+        # makes the next call with the same template start from this sample, not from the masks.
+        sampled_seq = protein_seq.clone()
+
+        loc = torch.where(protein_seq_mask.bool().reshape(-1))[0].cpu().numpy()
 
         if order == 'l2r': 
             loc = np.sort(loc)
@@ -269,15 +282,15 @@ class CELLDiffModel(PreTrainedModel):
                 sqrt_one_minus_alphas_cumprod_t = self.diffusion.sqrt_one_minus_alphas_cumprod_t(protein_img_latent, time)
 
                 seq_output = self.net(
-                    protein_img_latent, cell_img_latent, protein_seq, model_time, sqrt_one_minus_alphas_cumprod_t
+                    protein_img_latent, cell_img_latent, sampled_seq, model_time, sqrt_one_minus_alphas_cumprod_t
                 )[1]
                 
                 p = seq_output[:, i, 4:4+20] # sample at location i (random), dont let it predict non-standard AA
                 p = torch.nn.functional.softmax(p / temperature, dim=1) # softmax over categorical probs
                 p_sample = torch.multinomial(p, num_samples=1)
-                protein_seq[:, i] = p_sample.squeeze() + 4
+                sampled_seq[:, i] = p_sample.squeeze() + 4
 
-        return protein_seq
+        return sampled_seq
 
 
 class CELLDiff(nn.Module):
